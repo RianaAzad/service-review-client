@@ -1,10 +1,10 @@
 import React from 'react';
-import AboutUs from '../../../Assets/us.jpg'
+import AboutUs from '../../../Assets/about.webp'
 
 const About = () => {
     return (
         <div className='grid grid-cols-2 my-20 w-9/12 mx-auto bg-zinc-900 rounded p-10'>
-            <div className='my-auto'>
+            <div className='my-auto mx-4'>
                 <img className='rounded' src={AboutUs} alt="" />
             </div>
             <div>
