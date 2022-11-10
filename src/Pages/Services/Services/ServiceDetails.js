@@ -1,12 +1,22 @@
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Link, useLoaderData } from 'react-router-dom';
 import { AuthContext } from '../../../context/AuthProvider/AuthProvider';
+import Review from '../Review/Review';
 
 
 const ServiceDetails = () => {
   const { _id, name, picture, priceDetails, details, service, rating, duration, attractions, inclusion} = useLoaderData();
   const {user}= useContext(AuthContext);
 
+  const [newReviews, setNewReviews] = useState(null);
+  useEffect(()=>{
+    fetch('http://localhost:5000/reviews')
+    .then(res => res.json())
+    .then(data => {
+      setNewReviews(data)
+      console.log(data)
+    })
+  },[])
   const handlePostReview =event => {
     event.preventDefault();
     const form = event.target;
@@ -40,7 +50,8 @@ const ServiceDetails = () => {
 }
 
     return (
-        <div className="card w-9/12 mx-auto bg-base-100 shadow-xl">
+      
+          <div className="card w-9/12 mx-auto bg-base-100 shadow-xl">
   <figure className="px-10 pt-10">
     <img src={picture} alt="images" className="rounded-xl w-full" />
   </figure>
@@ -57,18 +68,26 @@ const ServiceDetails = () => {
     <div>
       <p>Services offered: </p>
       {
-        service.map(oneService => <>
+        service.map(oneService => <p>
         <p>{oneService}</p>
-        </>)
+        </p>)
       }
     </div>
+    
   </div>
   {/* review */}
+
   <div>
  <div className='border border-purple-400 rounded-lg bg-black'>
             <div>
-                <p className='font-bold'>{user?.email}</p>
-                
+                {
+                  newReviews?.map(newReview => <p className='text-start p-4 border border-purple-400'
+                  key={newReview._id}>
+                    <span className='text-cyan-600 font-bold p-5'>{newReview.email}</span>
+                    <span>{": "}</span>
+                    <span>{newReview.postedReview}</span>
+                    </p>)
+                }
             </div>
             <form onSubmit={handlePostReview}>
             <input name='comment' type="text" placeholder="Your comments" className="input input-bordered input-info input-lg w-11/12 m-4" /> 
@@ -79,7 +98,8 @@ const ServiceDetails = () => {
            
         </div>
  </div>
-</div>
+
+        </div>
     );
 };
 
