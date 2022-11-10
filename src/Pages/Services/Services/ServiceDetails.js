@@ -8,6 +8,11 @@ const ServiceDetails = () => {
   const { _id, name, picture, priceDetails, details, service, rating, duration, attractions, inclusion} = useLoaderData();
   const {user}= useContext(AuthContext);
 
+  const sd = {
+    _id,
+    name
+  }
+
   const [newReviews, setNewReviews] = useState(null);
   useEffect(()=>{
     fetch('http://localhost:5000/reviews')
@@ -17,37 +22,6 @@ const ServiceDetails = () => {
       console.log(data)
     })
   },[])
-  const handlePostReview =event => {
-    event.preventDefault();
-    const form = event.target;
-    const postedReview = form.comment.value;
-    const email = user?.email || 'unregistered';
-
-    const userReview = {
-        service_id: _id,
-        service_name: name,
-        email,
-        postedReview,
-    };
-
-    fetch('http://localhost:5000/reviews', {
-        method: 'POST',
-        headers: {
-            'content-type' : 'application/json'
-        },
-        body: JSON.stringify(userReview)
-    })
-    .then(res => res.json())
-    .then(data => {
-      console.log(data)
-      if(data.acknowledged){
-        form.reset();
-      }
-    })
-    .catch(e => console.error(e))
-
-
-}
 
     return (
       
@@ -81,24 +55,17 @@ const ServiceDetails = () => {
  <div className='border border-purple-400 rounded-lg bg-black'>
             <div>
                 {
-                  newReviews?.map(newReview => <p className='text-start p-4 border border-purple-400'
-                  key={newReview._id}>
-                    <span className='text-cyan-600 font-bold p-5'>{newReview.email}</span>
-                    <span>{": "}</span>
-                    <span>{newReview.postedReview}</span>
-                    </p>)
+                  newReviews?.map(newReview => 
+                  <Review
+                  key={newReview._id}
+                  newReview={newReview}
+                  sd={sd}
+                  ></Review>)
                 }
             </div>
-            <form onSubmit={handlePostReview}>
-            <input name='comment' type="text" placeholder="Your comments" className="input input-bordered input-info input-lg w-11/12 m-4" /> 
-            <div className='text-end mx-8 my-6'>
-            <input className='btn btn-info' type="submit" value="Post" />
-            </div>
-            </form>
-           
         </div>
- </div>
-
+        </div>
+ <Link to={`/post-review/${_id}`}><button className='btn btn-warning my-5'>Post A Review</button></Link>
         </div>
     );
 };

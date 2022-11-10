@@ -1,31 +1,28 @@
-import React, { useContext } from 'react';
-import { useLoaderData } from 'react-router-dom';
-import { AuthContext } from '../../../context/AuthProvider/AuthProvider';
+import { useContext } from "react";
+import { Link } from "react-router-dom";
+import { AuthContext } from "../../../context/AuthProvider/AuthProvider";
 
-const Review = () => {
-    const {user} = useContext(AuthContext)
-    // const url = `http://localhost:5000/reviews?service_id=${}`
-   
+const Review = ({newReview, sd}) => {
 
+    const {user} = useContext(AuthContext);
+    
+    if(newReview.service_name === sd.name){
+     let showReview = newReview.postedReview;
+    
     return (
-        <div>
-             <div>
- <div className='border border-purple-400 rounded-lg bg-black'>
+        <div className="text-start border border-cyan-600 px-6 rounded py-4 flex">
             <div>
-                <p className='font-bold'>{user?.email}</p>
-                
+                <img className="rounded-full" src={user?.photo} alt="" />
             </div>
-            {/* <form onSubmit={handlePostReview}> */}
-            <input name='comment' type="text" placeholder="Your comments" className="input input-bordered input-info input-lg w-11/12 m-4" /> 
-            <div className='text-end mx-8 my-6'>
-            <input className='btn btn-info' type="submit" value="Post" />
-            </div>
-            {/* </form> */}
-           
-        </div>
- </div>
+          <div>
+          <span>{user?.email}</span> 
+          <span>{user?.name}</span>
+          <p>Review: <span className="text-cyan-400">{showReview}</span></p>
+          </div>
+          
         </div>
     );
 };
+}
 
 export default Review;

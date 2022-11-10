@@ -1,10 +1,14 @@
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { FaGoogle } from 'react-icons/fa';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthProvider/AuthProvider';
 
 const Signup = () => {
 
-    const {createUser} = useContext(AuthContext);
+    const {createUser, signInWithGoogle} = useContext(AuthContext);
+    const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || '/'
 
     const handleSignUp = event => {
         event.preventDefault();
@@ -15,11 +19,22 @@ const Signup = () => {
         createUser(email, password)
         .then(result => {
             const user = result.user;
-            console.log(user)
+            console.log(user);
+            form.reset();
+            navigate(from, {replace: true});
         })
         .catch(e => {
             console.error(e)
         })
+    }
+
+    const handleGoogleSignIn = () => {
+      signInWithGoogle()
+      .then(result => {
+        const user = result.user;
+        console.log(user)
+      })
+      .catch(e => console.error(e))
     }
 
     return (
@@ -36,26 +51,27 @@ const Signup = () => {
           <label className="label">
             <span className="label-text">Your Name</span>
           </label>
-          <input type="text" placeholder="Your name here" className="input input-bordered w-96" />
+          <input type="text" placeholder="Your name here" className="input input-bordered w-96" required/>
         </div>
         <div className="form-control">
           <label className="label">
             <span className="label-text">Email</span>
           </label>
-          <input type="email" name='email' placeholder="email" className="input input-bordered" />
+          <input type="email" name='email' placeholder="email" className="input input-bordered" required/>
         </div>
         <div className="form-control">
           <label className="label">
             <span className="label-text">Password</span>
           </label>
-          <input type="password" name='password' placeholder="password" className="input input-bordered" />
+          <input type="password" name='password' placeholder="password" className="input input-bordered" required/>
         </div>
         <div className="form-control mt-6">
           <button className="btn btn-primary">Sign Up!</button>
         </div>
       </div>
       <div className="divider">OR</div>
-        <div className="grid h-20 card bg-base-300 rounded-box place-items-center">content</div>
+        <button onClick={handleGoogleSignIn} className="btn btn-outline btn-info"><FaGoogle></FaGoogle></button>
+        
     </div>
     </form>
 

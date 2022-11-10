@@ -1,7 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../context/AuthProvider/AuthProvider';
 
 const Header = () => {
+  const {user, logout} = useContext(AuthContext);
+
+  const handleLogOut = () => {
+    logout()
+    .then( () => {})
+    .catch(error => console.error(error))
+  }
     return (
         <div className="navbar bg-base-100">
         <div className="navbar-start">
@@ -12,6 +20,16 @@ const Header = () => {
             <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
               <li><Link to='/'>Home</Link></li>
               <li><Link to='/services'>Services</Link></li>
+              {
+                user?.email?
+                <>
+                <li><Link to='/my-reviews'>My Reviews</Link></li>
+                <li><Link to='/add-service'>Add Service</Link></li>
+                </>
+                :
+                <>
+                </>
+              }
             </ul>
           </div>
           <Link to='/' className="btn btn-ghost normal-case text-xl">Ghura Fira</Link>
@@ -20,11 +38,29 @@ const Header = () => {
           <ul className="menu menu-horizontal p-0">
             <li><Link to='/'>Home</Link></li>
             <li><Link to='/services'>Services</Link></li>
+            {
+                user?.email?
+                <>
+                <li><Link to='/my-reviews'>My Reviews</Link></li>
+                <li><Link to='/add-service'>Add Service</Link></li>
+                </>
+                :
+                <>
+                </>
+              }
           </ul>
         </div>
         <div className="navbar-end">
-          <Link to='/login' className="btn">Log In</Link>
           
+          
+          
+        {
+          user?.email?
+          <button className='btn btn-outline btn-info' onClick={handleLogOut}>Log Out</button>
+          :
+          <button className='btn btn-outline btn-info mr-3'><Link to='/login' >Log In</Link></button>
+          }
+
         </div>
       </div>
     );
