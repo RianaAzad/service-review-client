@@ -1,14 +1,19 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useLoaderData } from 'react-router-dom';
 import { AuthContext } from '../../../context/AuthProvider/AuthProvider';
+import useTitle from '../../../hooks/useTitle';
 import ShowMyReview from './ShowMyReview';
 
 const MyReviews = ({email}) => {
     const {user} = useContext(AuthContext);
     const [myReviews, setMyReviews] = useState([]);
-    
+    useTitle('MyReviews')
     useEffect(()=>{
-        fetch('http://localhost:5000/reviews')
+        fetch('http://localhost:5000/reviews',{
+            headers: {
+                authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        })
         .then(res => res.json())
         .then(data => setMyReviews(data))
     },[])

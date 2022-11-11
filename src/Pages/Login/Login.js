@@ -1,13 +1,14 @@
 import React, { useContext } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthProvider/AuthProvider';
+import useTitle from '../../hooks/useTitle';
 
 const Login = () => {
     const {signIn} = useContext(AuthContext);
     const navigate = useNavigate();
     const location = useLocation();
     const from = location.state?.from?.pathname || '/'
-
+    useTitle('login')
     const handleLogIn = event => {
         event.preventDefault();
         const form = event.target;
@@ -19,7 +20,27 @@ const Login = () => {
             const user = result.user;
             console.log(user);
             form.reset();
-            navigate(from, {replace: true});
+
+
+            const currentUser = {
+              email: user.email
+            }
+
+            fetch('http://localhost:5000/jwt',{
+              method: 'POST',
+              headers:{
+                'content-type' : 'application/json'
+              },
+              body: JSON.stringify(currentUser)
+            })
+            .then(res => res.json())
+            .then(data => {
+              console.log(data)
+              localStorage.setItem('token', data.token)
+              navigate(from, {replace: true});
+            });
+
+            
         })
         .catch(e => {
             console.error(e)

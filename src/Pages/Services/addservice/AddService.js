@@ -1,11 +1,12 @@
 import React from 'react';
 import { useLoaderData, useNavigate } from 'react-router-dom';
+import useTitle from '../../../hooks/useTitle';
 
 const AddService = () => {
     const service = useLoaderData();
     console.log(service)
     const navigate = useNavigate();
-
+    useTitle('addService')
     const handleAddService = event => {
         event.preventDefault();
         const form = event.target;

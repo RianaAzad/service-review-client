@@ -1,7 +1,9 @@
 import React from 'react';
 import JWT from '../../Assets/JWT.png'
+import useTitle from '../../hooks/useTitle';
 
 const Blog = () => {
+    useTitle('Blogs')
     return (
 <div className='container text-justify mx-auto'>
 <div className='m-3'>
