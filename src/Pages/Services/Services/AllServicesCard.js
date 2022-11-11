@@ -5,7 +5,7 @@ const AllServicesCard = ({allService}) => {
     const {name, picture, details, price, _id} = allService;
     return (
         <Link to='/details'><div className="card card-compact w-96 bg-base-100 shadow-xl h-full">
-  <figure><img src={picture} alt="Shoes" /></figure>
+  <figure><img src={picture} alt="ServicePhoto" /></figure>
   <div className="card-body">
     <h2 className="card-title">{name}</h2>
     <p>{details?.slice(0,100)}</p>
