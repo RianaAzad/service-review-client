@@ -5,7 +5,7 @@ import useTitle from '../../../hooks/useTitle';
 import ShowMyReview from './ShowMyReview';
 
 const MyReviews = ({email}) => {
-    const {user} = useContext(AuthContext);
+   
     const [myReviews, setMyReviews] = useState([]);
     useTitle('MyReviews')
     useEffect(()=>{
