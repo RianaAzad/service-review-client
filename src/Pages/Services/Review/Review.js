@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { Link, useLoaderData } from "react-router-dom";
 import { AuthContext } from "../../../context/AuthProvider/AuthProvider";
+import useTitle from "../../../hooks/useTitle";
 
 const Review = ({newReview, sd}) => {
     console.log(newReview)

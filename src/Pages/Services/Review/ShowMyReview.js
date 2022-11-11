@@ -5,7 +5,6 @@ import { AuthContext } from '../../../context/AuthProvider/AuthProvider';
 const ShowMyReview = ({myReview, handleDelete, handleEdit}) => {
     const {user} = useContext(AuthContext)
 
-    let count =0;
     if(myReview?.email === user?.email)
     {
     

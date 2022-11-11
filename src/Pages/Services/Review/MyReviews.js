@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useLoaderData } from 'react-router-dom';
-import { AuthContext } from '../../../context/AuthProvider/AuthProvider';
+
 import useTitle from '../../../hooks/useTitle';
 import ShowMyReview from './ShowMyReview';
 
