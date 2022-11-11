@@ -1,12 +1,11 @@
 
-import { getAuth } from 'firebase/auth';
 import React, { useContext } from 'react';
 import { FaGoogle } from 'react-icons/fa';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthProvider/AuthProvider';
-import app from '../../firebase/firebase.config';
+
 import useTitle from '../../hooks/useTitle';
-const auth = getAuth(app);
+
 
 const Signup = () => {
   useTitle('signup')
@@ -28,7 +27,7 @@ const Signup = () => {
         .then(result => {
           const user = result.user;
           console.log(user)
-          console.log('dine')
+          
         })
         .catch(e => console.error(e))
 

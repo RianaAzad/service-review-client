@@ -34,7 +34,7 @@ const router = createBrowserRouter([
             {
                 path: '/details/:id',
                 element: <ServiceDetails></ServiceDetails>,
-                loader: ({params}) => fetch(`http://localhost:5000/services/${params.id}`)
+                loader: ({params}) => fetch(`https://assignment11-server-iota.vercel.app/services/${params.id}`)
             },
             {
                 path: '/login',
@@ -47,23 +47,23 @@ const router = createBrowserRouter([
             {
                 path: '/reviews',
                 element: <Review></Review>,
-                loader: () => fetch('http://localhost:5000/reviews')
+                loader: () => fetch('https://assignment11-server-iota.vercel.app/reviews')
             },
             {
                 path: '/post-review/:id',
                 element: <PrivateRoute><PostReview></PostReview></PrivateRoute>,
-                loader: ({params}) => fetch(`http://localhost:5000/services/${params.id}`)
+                loader: ({params}) => fetch(`https://assignment11-server-iota.vercel.app/services/${params.id}`)
             },
             {
                 path: '/my-reviews',
                 element: <MyReviews></MyReviews>,
-                loader: () => fetch('http://localhost:5000/reviews')
+                loader: () => fetch('https://assignment11-server-iota.vercel.app/reviews')
 
             },
             {
                 path: '/add-service',
                 element: <PrivateRoute><AddService></AddService></PrivateRoute>,
-                loader: ()=> fetch('http://localhost:5000/allServices')
+                loader: ()=> fetch('https://assignment11-server-iota.vercel.app/allServices')
             },
             {
                 path: '/blog',

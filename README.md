@@ -1,4 +1,4 @@
-Live Link: 
+Live Link: https://ghura-fira-890db.web.app/details/636bdbb924861e88b06269cf
 
 Details about the Projects
 The website 'GHURA FIRA' serves as a platform for those who wants to visit Bangladesh and want to have a professional tour guide. The website is maintained by the tour guide himself and he provides services to clients. 

@@ -6,7 +6,7 @@ import AllServicesCard from './AllServicesCard';
 const AllServices = () => {
     const [allServices, setAllServices] = useState([]);
     useEffect(() => {
-        fetch('http://localhost:5000/allServices')
+        fetch('https://assignment11-server-iota.vercel.app/allServices')
         .then(res => res.json())
         .then(data => {
             setAllServices(data)

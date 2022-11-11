@@ -20,13 +20,13 @@ const Login = () => {
             const user = result.user;
             console.log(user);
             form.reset();
-
+            navigate(from, {replace: true});
 
             const currentUser = {
               email: user.email
             }
 
-            fetch('http://localhost:5000/jwt',{
+            fetch('https://assignment11-server-iota.vercel.app/jwt',{
               method: 'POST',
               headers:{
                 'content-type' : 'application/json'

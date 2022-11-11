@@ -41,7 +41,7 @@ const AddService = () => {
             shortDescription: shortDescription
         }
 
-        fetch('http://localhost:5000/allServices', {
+        fetch('https://assignment11-server-iota.vercel.app/allServices', {
             method: 'POST',
             headers: {
                 'content-type' : 'application/json'
