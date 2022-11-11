@@ -1,13 +1,19 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import useTitle from '../../../hooks/useTitle';
+import { PhotoProvider, PhotoView } from 'react-photo-view';
 
 const AllServicesCard = ({allService}) => {
   useTitle('AllServices')
     const {name, picture, details, price, _id} = allService;
     return (
-        <Link to='/details'><div className="card card-compact w-96 bg-base-100 shadow-xl h-full">
-  <figure><img src={picture} alt="ServicePhoto" /></figure>
+       <PhotoProvider>
+         <Link to='/details'><div className="card card-compact w-96 bg-base-100 shadow-xl h-full">
+  <figure>
+    <PhotoView src={picture}>
+    <img src={picture} style={{ objectFit: 'cover' }} alt="ServicePhoto" />
+    </PhotoView>
+  </figure>
   <div className="card-body">
     <h2 className="card-title">{name}</h2>
     <p>{details?.slice(0,100)}</p>
@@ -18,6 +24,7 @@ const AllServicesCard = ({allService}) => {
   </div>
 </div>
 </Link>
+       </PhotoProvider>
     );
 };
 
