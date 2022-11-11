@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import AllServicesCard from './AllServicesCard';
 
 
@@ -31,6 +32,7 @@ const AllServices = () => {
                    )
                 }
             </div>
+            <Link to='/add-service'><button className='btn btn-outline btn-success m-10'>Add A service</button></Link>
         </div>
     );
             };
