@@ -6,7 +6,7 @@ import ShowMyReview from './ShowMyReview';
 const MyReviews = ({email}) => {
     const {user} = useContext(AuthContext);
     const [myReviews, setMyReviews] = useState([]);
-    const [afterDeletion, setAfterDeletion] = useState(myReviews)
+    
     useEffect(()=>{
         fetch('http://localhost:5000/reviews')
         .then(res => res.json())
@@ -22,10 +22,9 @@ const MyReviews = ({email}) => {
             .then(res => res.json())
             .then(data => {
                 if(data.deletedCount> 0){
-                    alert('Successfully deleted!');
                     const remainingReviews = myReviews.filter(rev => rev._id !== id);
-                    
                     setMyReviews(remainingReviews);
+                    alert('Successfully deleted!');
                 }
             })
         }

@@ -1,11 +1,15 @@
+
+import { getAuth } from 'firebase/auth';
 import React, { useContext } from 'react';
 import { FaGoogle } from 'react-icons/fa';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthProvider/AuthProvider';
+import app from '../../firebase/firebase.config';
+const auth = getAuth(app);
 
 const Signup = () => {
 
-    const {createUser, signInWithGoogle} = useContext(AuthContext);
+    const {createUser, signInWithGoogle, updateUserProfile} = useContext(AuthContext);
     const navigate = useNavigate();
     const location = useLocation();
     const from = location.state?.from?.pathname || '/'
@@ -13,29 +17,42 @@ const Signup = () => {
     const handleSignUp = event => {
         event.preventDefault();
         const form = event.target;
+        const userName = form.name.value;
+        const userPhoto = form.image.value;
         const email = form.email.value;
         const password = form.password.value;
+        console.log(userName,userPhoto, email);
+  
+        updateUserProfile({userName, userPhoto})
+        .then(result => {
+          const user = result.user;
+          console.log(user)
+          console.log('dine')
+        })
+        .catch(e => console.error(e))
 
         createUser(email, password)
         .then(result => {
             const user = result.user;
-            console.log(user);
             form.reset();
             navigate(from, {replace: true});
         })
         .catch(e => {
             console.error(e)
         })
+        
     }
+    
 
     const handleGoogleSignIn = () => {
       signInWithGoogle()
       .then(result => {
         const user = result.user;
-        console.log(user)
+            navigate(from, {replace: true});
       })
       .catch(e => console.error(e))
     }
+   
 
     return (
         <div className="flex flex-col w-full border-opacity-50 hero min-h-screen bg-base-200">
@@ -51,7 +68,13 @@ const Signup = () => {
           <label className="label">
             <span className="label-text">Your Name</span>
           </label>
-          <input type="text" placeholder="Your name here" className="input input-bordered w-96" required/>
+          <input type="text" name='name' placeholder="Your name here" className="input input-bordered w-96" required/>
+        </div>
+        <div className="form-control">
+          <label className="label">
+            <span className="label-text">Photo URL</span>
+          </label>
+          <input type="text" name='image' placeholder="Your photo URL" className="input input-bordered w-96" required/>
         </div>
         <div className="form-control">
           <label className="label">
